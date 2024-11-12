@@ -1,5 +1,5 @@
 {% set name = "anaconda-cli-base" %}
-{% set version = "0.2.2" %}
+{% set version = "0.4.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,14 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
-  sha256: fd0ef7cf48b98e87f52bde3f632aa58a5ab600b8c11b3f0a5a663a369d8a2e10
+  sha256: 59e50f43f174a8f6d9b7754bfcb4eb7b69f5540a1108232edfbaf8a32f43be54
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
   skip: true # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - anaconda = anaconda_cli_base.cli:app
 
 requirements:
   host:
@@ -23,6 +25,8 @@ requirements:
     - pip
   run:
     - python
+    - click
+    - pydantic-settings >=2.3
     - readchar
     - rich
     - typer
@@ -30,11 +34,20 @@ requirements:
 test:
   imports:
     - anaconda_cli_base
-  commands:
-    - python -c "from anaconda_cli_base import __version__; assert __version__ == \"{{ version }}\""
-    - pip check
+  source_files:
+    - tests
   requires:
     - pip
+    - pytest
+    - pytest-mock
+    - types-requests
+  commands:
+    - pip check
+    - anaconda -h
+    - anaconda -V
+    - python -c "from anaconda_cli_base import __version__; assert __version__ == \"{{ version }}\""
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   summary: A base CLI entrypoint supporting Anaconda CLI plugins
