@@ -1,5 +1,5 @@
 {% set name = "anaconda-cli-base" %}
-{% set version = "0.4.1" %}
+{% set version = "0.4.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
-  sha256: 59e50f43f174a8f6d9b7754bfcb4eb7b69f5540a1108232edfbaf8a32f43be54
+  sha256: 009fda4592daf5a7c47d354b23af3226d02fa8b8a06dc685ab11ade7ba68c721
 
 build:
   noarch: python
@@ -28,6 +28,7 @@ requirements:
     - rich
     - typer
     - pydantic-settings >=2.3
+    - tomli
   run_constrained:
     # Ensure that a version of anaconda-cli-base cannot be installed if an incompatible
     # older version of anaconda-client is installed.
