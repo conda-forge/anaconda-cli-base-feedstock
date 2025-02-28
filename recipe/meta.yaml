@@ -1,5 +1,5 @@
 {% set name = "anaconda-cli-base" %}
-{% set version = "0.4.2" %}
+{% set version = "0.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
-  sha256: 009fda4592daf5a7c47d354b23af3226d02fa8b8a06dc685ab11ade7ba68c721
+  sha256: db5235c30ca1d039835d92e9495252fd0d9dd6f737e1b69702c6b5eac7be4eb7
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 0
   entry_points:
     - anaconda = anaconda_cli_base.cli:app
 
