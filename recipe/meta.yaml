@@ -25,7 +25,7 @@ requirements:
     - pip
   run:
     - python >={{ python_min }}
-    - click
+    - click <8.2
     - readchar
     - rich
     - typer
