@@ -47,7 +47,7 @@ test:
 
 about:
   summary: A base CLI entrypoint supporting Anaconda CLI plugins
-  home: https://anaconda.cloud
+  home: https://github.com/anaconda/anaconda-cli-base
   license: BSD-3-Clause
   license_file: LICENSE
 
