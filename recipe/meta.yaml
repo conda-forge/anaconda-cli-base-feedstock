@@ -1,17 +1,17 @@
 {% set name = "anaconda-cli-base" %}
-{% set version = "0.5.2" %}
+{% set version = "0.5.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
-  sha256: 96ba616ae7091ef2cb5bd473dc164c68e2328ba98b70ce5afbfe7ad3123c8081
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
+  sha256: 1d9355e6e9c4b9221ef9ded81fe9415115c8b4a26de73ee158f443ec1dbe7a06
 
 build:
   number: 0
-  skip: true # [py<38]
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - anaconda = anaconda_cli_base.cli:app
@@ -25,17 +25,18 @@ requirements:
     - pip
   run:
     - python
-    - click
+    - click <8.2
     - pydantic-settings >=2.3
     - readchar
     - rich
     - typer
     - tomli
+    - packaging >=23.0
   run_constrained:
-      # Ensure that a version of anaconda-cli-base cannot be installed if an incompatible
-      # older version of anaconda-client is installed.
-      - anaconda-client >=1.13.0
-      - anaconda-cloud-cli >=0.3.0
+    # Ensure that a version of anaconda-cli-base cannot be installed if an incompatible
+    # older version of anaconda-client is installed.
+    - anaconda-client >=1.13.0
+    - anaconda-cloud-cli >=0.3.0
 
 test:
   imports:
