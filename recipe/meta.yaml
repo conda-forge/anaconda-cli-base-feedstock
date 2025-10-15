@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   entry_points:
     - anaconda = anaconda_cli_base.cli:app
 
@@ -31,6 +31,7 @@ requirements:
     - typer
     - pydantic-settings >=2.3
     - tomli
+    - packaging >=23.0
   run_constrained:
     # Ensure that a version of anaconda-cli-base cannot be installed if an incompatible
     # older version of anaconda-client is installed.
@@ -40,10 +41,12 @@ requirements:
 test:
   requires:
     - python {{ python_min }}
+    - pip
   imports:
     - anaconda_cli_base
   commands:
     - python -c "from anaconda_cli_base import __version__; assert __version__ == \"{{ version }}\""
+    - pip check
 
 about:
   summary: A base CLI entrypoint supporting Anaconda CLI plugins
