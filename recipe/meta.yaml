@@ -6,8 +6,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/anaconda_cli_base-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
   sha256: 1d9355e6e9c4b9221ef9ded81fe9415115c8b4a26de73ee158f443ec1dbe7a06
+  patches:
+    - 0001-windows-path-fix.patch  # [win]
 
 build:
   number: 0
@@ -18,11 +20,11 @@ build:
 
 requirements:
   host:
+    - pip
     - python
     - hatchling
     - hatch-vcs >=0.3
     - setuptools-scm >=7.1
-    - pip
   run:
     - python
     - click <8.2
@@ -39,10 +41,10 @@ requirements:
     - anaconda-cloud-cli >=0.3.0
 
 test:
-  imports:
-    - anaconda_cli_base
   source_files:
     - tests
+  imports:
+    - anaconda_cli_base
   requires:
     - pip
     - pytest
@@ -57,14 +59,14 @@ test:
     - pytest -v tests
 
 about:
-  summary: A base CLI entrypoint supporting Anaconda CLI plugins
-  description: A base CLI entrypoint supporting Anaconda CLI plugins
   home: https://anaconda.cloud
   license: BSD-3-Clause
   license_file: LICENSE
   license_family: BSD
-  dev_url: https://pypi.org/project/anaconda-cli-base/
-  doc_url: https://pypi.org/project/anaconda-cli-base/
+  summary: A base CLI entrypoint supporting Anaconda CLI plugins
+  description: A base CLI entrypoint supporting Anaconda CLI plugins
+  dev_url: https://pypi.org/project/anaconda-cli-base
+  doc_url: https://pypi.org/project/anaconda-cli-base
 
 extra:
   recipe-maintainers:
