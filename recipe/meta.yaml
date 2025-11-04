@@ -1,5 +1,5 @@
 {% set name = "anaconda-cli-base" %}
-{% set version = "0.5.4" %}
+{% set version = "0.6.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace("-", "_") }}-{{ version }}.tar.gz
-  sha256: 1d9355e6e9c4b9221ef9ded81fe9415115c8b4a26de73ee158f443ec1dbe7a06
+  sha256: da0a8278ba4b9766e0df01fc8b15e8c2d1030c7229c51adddf3f0e84430601f2
   patches:
     - 0001-windows-path-fix.patch  # [win]
 
